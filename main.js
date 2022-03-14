@@ -11,12 +11,24 @@ window.addEventListener("DOMContentLoaded",() => {
     const localStorageobj=localStorage;
     const localStoragekeys= Object.keys(localStorageobj);
 
-    for(var i=0;i<localStoragekeys.length;i++){
-        const key = localStoragekeys[i]
-        const userdetailsStrings= localStorageobj[key];
-        const userdeailsObj = JSON.parse(userdetailsStrings);
-        ShowNewUser(userdeailsObj)
-    }
+    // for(var i=0;i<localStoragekeys.length;i++){
+    //     const key = localStoragekeys[i]
+    //     const userdetailsStrings= localStorageobj[key];
+    //     const userdeailsObj = JSON.parse(userdetailsStrings);
+    //     ShowNewUser(userdeailsObj)
+    // }
+
+    axios.get("https://crudcrud.com/api/ac093fdcabee4560b7b8f0307430ac26/appointmentData")
+        .then((response)=>{
+            for (var i=0;i<response.data.length;i++){
+                ShowNewUser(response.data[i])
+            }
+            
+            console.log(response)
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
 });
 
 
