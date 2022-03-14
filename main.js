@@ -72,7 +72,7 @@ function ShowNewUser(userdetails){
     let childHtml=`<li id=${userdetails._id}> 
                         <b>Name:</b> ${userdetails.name} -<b> Email:</b> ${userdetails.email} 
                         <button onclick=deleteser('${userdetails._id}') class='buttonDly'> Remove </button> 
-                        <button onclick=removeuser('${userdetails.email}','${userdetails.name}') class="buttonEdt"> edit </button> 
+                        <button onclick=removeuser('${userdetails.email}','${userdetails.name}','${userdetails._id}') class="buttonEdt"> edit </button> 
                     </li> `;
     MainNodeVariable.innerHTML=MainNodeVariable.innerHTML + childHtml;
 }
@@ -108,12 +108,13 @@ function removeUserFromScreen(userid){
 
 
 //edit user details
-function removeuser(useremail, username){
+function removeuser(useremail, username, userid){
     console.log('Edit function called');
     let Namebox=document.getElementById('name');
     let EmailBox=document.getElementById('email');
 
+    console.log(username);
     Namebox.value = username;
     EmailBox.value = useremail;
-    deleteser(useremail)
+    deleteser(userid);
 }
