@@ -50,7 +50,7 @@ btn.addEventListener('click',(e)=>{
 axios.post("https://crudcrud.com/api/ac093fdcabee4560b7b8f0307430ac26/appointmentData",myobj)
         .then((response)=>{
             ShowNewUser(response.data)
-            console.log(response)
+            console.log(response.data)
         })
         .catch((err)=>{
             console.log(err);
@@ -69,9 +69,9 @@ function ShowNewUser(userdetails){
     }
 
     let MainNodeVariable=document.getElementById('itemss');
-    let childHtml=`<li id=${userdetails.email}> 
+    let childHtml=`<li id=${userdetails._id}> 
                         <b>Name:</b> ${userdetails.name} -<b> Email:</b> ${userdetails.email} 
-                        <button onclick=deleteser('${userdetails.email}') class='buttonDly'> Remove </button> 
+                        <button onclick=deleteser('${userdetails._id}') class='buttonDly'> Remove </button> 
                         <button onclick=removeuser('${userdetails.email}','${userdetails.name}') class="buttonEdt"> edit </button> 
                     </li> `;
     MainNodeVariable.innerHTML=MainNodeVariable.innerHTML + childHtml;
@@ -82,8 +82,16 @@ function ShowNewUser(userdetails){
 //remove details from the localstorage
 function deleteser(userid){
     console.log("deleting function called");
-    localStorage.removeItem(userid);
-    removeUserFromScreen(userid);
+    // localStorage.removeItem(userid);
+    // removeUserFromScreen(userid);
+
+    axios
+    .delete(`https://crudcrud.com/api/ac093fdcabee4560b7b8f0307430ac26/appointmentData/${userid}`)
+    .then((response)=>{
+        removeUserFromScreen(userid);
+        //console.log(response.data)
+    })
+    .catch(err=>console.log(err))
 }
 
 
